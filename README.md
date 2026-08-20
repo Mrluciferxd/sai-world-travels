@@ -26,6 +26,10 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+Copy `.env.example` to `.env.local` for local enquiry integration. The public
+site origin belongs in `SITE_URL`; `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are
+server-only. Never expose the secret through a `NEXT_PUBLIC_` variable.
+
 ## Verification commands
 
 | Command | Purpose |
@@ -43,7 +47,7 @@ The build command uses Next.js's supported Webpack path because the default Turb
 
 - Build and verify locally during the initial phases.
 - Git history is organised into completed, verified phase commits.
-- Supabase is planned for the later referral-enquiry backend; no production project is connected in Phase 1.
+- The referral-enquiry UI, server endpoint, validation, and least-privilege Supabase migration are implemented locally. No production Supabase project is connected yet.
 - Vercel may be used later for demo or preview deployments only.
 - Hostinger is the intended final production host, so the application must remain portable and avoid Vercel-only runtime assumptions.
 - The portable production commands are `pnpm build` followed by `pnpm start`; do not configure a static export.

@@ -174,14 +174,10 @@ export default function Home() {
           </div>
           <div className="contact-action">
             <p>{contact.description}</p>
-            <button
-              className="button button-light"
-              type="button"
-              disabled={!contact.action.enabled}
-            >
+            <a className="button button-light" href={contact.action.href}>
               {contact.action.label}
               <ArrowIcon />
-            </button>
+            </a>
             <small>{contact.availabilityNote}</small>
           </div>
         </section>

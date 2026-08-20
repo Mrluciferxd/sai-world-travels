@@ -69,3 +69,21 @@
 **Alternatives Considered**: Package-card grids, stock travel imagery, generic glass panels, uniform fade-up reveals, autoplay carousels, parallax, and a client animation library.
 **Consequences**: The site has a recognisable visual language without runtime animation dependencies. Every new route must preserve reduced-motion, touch, focus, overflow, and performance checks.
 **Superseded By**: None.
+
+## Decision: Server-only referral enquiry persistence
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: Referred visitors need a private enquiry path, but the public browser must not receive a privileged key or direct access to stored contact and travel-intent data.
+**Decision**: Submit a shared minimal JSON contract to a Node.js App Route. Validate and bound the request on the server, then insert through the Supabase Data API with `SUPABASE_SECRET_KEY` in the server-only `apikey` header. Enable RLS, create no public policies, revoke `PUBLIC`, `anon`, and `authenticated`, and grant `service_role` only insert/select plus status-only update.
+**Alternatives Considered**: Direct anonymous browser inserts, a public insert RLS policy, a generic form provider, or collecting full booking/passport/payment data.
+**Consequences**: Public database access fails closed and the application remains Hostinger-portable. The server secret is highly privileged and must be rotated/protected; a hosted migration, anonymous-denial test, advisors, and retention approval remain required before production.
+**Superseded By**: None.
+
+## Decision: Layered local abuse controls with an explicit production gate
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: The public enquiry endpoint needs spam resistance without adding a paid vendor or persisting client IP addresses before hosting behavior and traffic are known.
+**Decision**: Use an inaccessible honeypot, exact same-origin JSON requests, a 16 KiB streaming cap, strict shared validation, a bounded per-client hash limiter, and a separate process-wide ceiling. Treat the limiter as best-effort only and require Hostinger trusted-proxy verification plus an upstream or durable limit before higher-volume production exposure.
+**Alternatives Considered**: No abuse controls, CAPTCHA at first launch, raw-IP database retention, and an unverified distributed cache dependency.
+**Consequences**: Local and single-process abuse is bounded without collecting another persistent identifier. Limits reset on restart and cannot coordinate across processes, so documentation and production checks must not overstate protection.
+**Superseded By**: None.

@@ -1,7 +1,7 @@
 # Architecture
 
 ## System Overview
-Sai World Travels is a content-led Next.js website. Mostly static Server Components present the brand, service process, journey inspiration, and trust signals. A later server-only enquiry boundary will validate referral enquiries, apply anti-spam controls, and persist only the minimum operational data to Supabase.
+Sai World Travels is a content-led Next.js website. Mostly static Server Components present the brand, service process, journey inspiration, and trust signals. A client form submits minimal referral details to a Node.js App Route, which performs bounded parsing, shared validation, origin checks, best-effort abuse protection, and server-only Supabase persistence.
 
 ## Architecture Diagram
 ```text
@@ -10,12 +10,15 @@ Visitor browser
     v
 Next.js pages and components
     |
-    +--> WhatsApp / phone handoff
+    +--> /plan-your-journey client form
     |
-    +--> Server-only enquiry endpoint (later phase)
+    +--> POST /api/enquiries (Node.js only)
               |
               v
-        Supabase Postgres with RLS
+        Supabase Data API with server secret
+              |
+              v
+        referral_enquiries (RLS; no public grants/policies)
 
 GitHub --> optional Vercel demo/preview
     |
@@ -27,14 +30,14 @@ GitHub --> optional Vercel demo/preview
 |---|---|---|
 | Frontend | Next.js, React, Tailwind CSS | Responsive pages and conversion journey |
 | Backend/API | Next.js server boundary | Validate and submit enquiries without exposing privileged secrets |
-| Database | Supabase Postgres | Store minimum enquiry and follow-up data when implemented |
+| Database | Supabase Postgres | Store minimum enquiry and follow-up state after the migration is applied |
 | Auth | None in public v1 | No customer accounts or login |
 | Storage | Local/optimised public assets initially | Brand and approved travel media |
 | CDN/Hosting | Hostinger production; optional Vercel demo | Portable preview and production delivery |
 | Testing | Vitest, React Testing Library, jsdom | Unit, render, build, and later integration coverage |
 
 ## Data Flow
-The visitor reads mostly static content, chooses to start planning, supplies referral and trip context, and submits it to a server-only handler. The handler will validate, rate-limit, and store the minimum required data. The confirmation state will offer a WhatsApp continuation without placing personal data in a URL unless explicitly designed and reviewed.
+The visitor reads mostly static content, chooses to start planning, supplies referral and trip context, and submits JSON to the same-origin server handler. The handler reads at most 16 KiB, validates the shared contract, applies a honeypot plus bounded process-local limits, and inserts through the Supabase REST endpoint using a server-only secret key. The response exposes no database identifier or upstream error detail.
 
 ## Key Design Patterns
 - App Router with Server Components by default.
@@ -49,11 +52,11 @@ The visitor reads mostly static content, chooses to start planning, supplies ref
 - GitHub stores the source and phase history.
 - Vercel may host optional demo/preview builds later.
 - Hostinger Node.js Web App is the final production target.
-- Supabase will provide the enquiry database later.
+- Supabase provides the planned enquiry database; the local migration exists, but no hosted project is linked or changed yet.
 - WhatsApp and telephone links provide personal contact; availability is outside the site's control.
 
 ## Scalability & Limits
-The content-led site can scale through static delivery. Enquiry volume is expected to be modest and high-touch. If operational needs expand, introduce authenticated staff tools separately rather than exposing administration in the public site.
+The content-led site can scale through static delivery. Enquiry volume is expected to be modest and high-touch. The current rate limiter is process-local and resets on restart, so production still requires Hostinger proxy verification and an upstream or durable control before higher-volume exposure. If operational needs expand, introduce authenticated staff tools separately rather than exposing administration in the public site.
 
 ## What NOT to Do
 - Do not build package search, price comparison, instant checkout, or customer accounts for v1.

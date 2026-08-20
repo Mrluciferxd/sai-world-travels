@@ -43,3 +43,18 @@
 - Promoted the three real routes into typed global navigation while retaining contextual homepage anchors.
 - The final independent audit approved Phase 3 with no remaining blockers.
 - Branch `agent/phase-3-core-routes` was pushed to GitHub after approval.
+
+## 2026-08-20 — Build Phase 4 secure referral enquiries
+**What**: Added the Plan Your Journey form, hardened Node.js API boundary, shared validation and response contracts, server-only Supabase adapter, and least-privilege enquiry migration.
+**Why**: Give referred travellers a real, private enquiry path without exposing a database key, collecting booking documents/payment data, or introducing public database access.
+**Impact**: All planning CTAs now route to `/plan-your-journey`; successful submissions can persist minimal follow-up data once an approved Supabase project is configured. Hosted migration, retention/legal approval, durable abuse protection, and production deployment remain explicit gates.
+**Files Changed**: `.env.example`, `.gitignore`, `app/api/enquiries/*`, `app/plan-your-journey/*`, `app/page*`, `app/globals.css`, `components/referral-enquiry-form*`, shared header/interior components and tests, `content/site-content*`, `lib/enquiries/*`, `supabase/migrations/*`, `supabase/tests/database/*`, `README.md`, and task-relevant `knowledge-base/*.md` files.
+**Tests**: Focused Phase 4 frontend tests passed (7 form + 2 route = 9/9); API/validation/repository/rate tests and the full 55/55 Vitest suite passed. Lint, typecheck, Webpack build, production runtime, responsive browser QA, and independent code/security review passed. The migration applied to isolated PostgreSQL 17 and passed catalog, privilege, constraint, and boundary probes. The 21-test pgTAP file is authored but not executed because the pgTAP extension/Supabase test harness is unavailable.
+**Commit**: Pending phase approval.
+
+- Uses current server-only `sb_secret_*` semantics with an `apikey` header and an eight-second request timeout.
+- Requires exact same-origin JSON, rejects compressed/oversized/malformed payloads, and never exposes upstream details or a database identifier.
+- Adds a honeypot, bounded per-client hash limiter, and process-wide ceiling while documenting their process/proxy limitations.
+- Enables RLS, creates no public policies, revokes `PUBLIC`/`anon`/`authenticated`, and narrows `service_role` to insert/select and status-only update.
+- Keeps production Supabase, Vercel, Hostinger, and DNS untouched.
+- Independent code/security/runtime review and the final documentation re-audit approved Phase 4.

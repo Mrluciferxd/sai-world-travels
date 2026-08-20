@@ -9,7 +9,8 @@ export const siteSectionIds = [
 export type SiteSectionId = (typeof siteSectionIds)[number];
 export type SiteSectionHref = `#${SiteSectionId}`;
 export type CorePageHref = "/how-we-work" | "/travel-inspiration" | "/about";
-export type SiteHref = SiteSectionHref | CorePageHref;
+export type EnquiryPageHref = "/plan-your-journey";
+export type SiteHref = SiteSectionHref | CorePageHref | EnquiryPageHref;
 export type ContentStatus = "verified" | "pending";
 
 export interface NavigationItem {
@@ -92,15 +93,15 @@ export interface SiteContent {
     readonly signoffTagline: string;
   };
   readonly contact: {
-    readonly status: "pending";
+    readonly status: "verified";
     readonly eyebrow: string;
     readonly title: string;
     readonly emphasizedTitle: string;
     readonly description: string;
     readonly action: {
       readonly label: string;
-      readonly enabled: false;
-      readonly href: null;
+      readonly enabled: true;
+      readonly href: EnquiryPageHref;
     };
     readonly availabilityNote: string;
   };
@@ -138,7 +139,7 @@ export const siteContent = {
     ],
     primaryAction: {
       label: "Plan your journey",
-      href: "#contact",
+      href: "/plan-your-journey",
     },
   },
   hero: {
@@ -150,7 +151,7 @@ export const siteContent = {
       "Sai World Travels personally plans, arranges, and manages your complete journey—with the care that comes from a trusted introduction.",
     primaryAction: {
       label: "Start planning your journey",
-      href: "#contact",
+      href: "/plan-your-journey",
     },
     secondaryAction: {
       label: "Discover how we work",
@@ -227,7 +228,7 @@ export const siteContent = {
     signoffTagline: "Holidays, your way.",
   },
   contact: {
-    status: "pending",
+    status: "verified",
     eyebrow: "When you are ready",
     title: "Let's begin with",
     emphasizedTitle: "a conversation.",
@@ -235,11 +236,11 @@ export const siteContent = {
       "Have a destination in mind—or just a feeling you want your next holiday to have? We would love to hear it.",
     action: {
       label: "Start planning your journey",
-      enabled: false,
-      href: null,
+      enabled: true,
+      href: "/plan-your-journey",
     },
     availabilityNote:
-      "Enquiry channel coming next — official details to be confirmed",
+      "A private enquiry for referred guests and trusted introductions.",
   },
   footer: {
     status: "verified",

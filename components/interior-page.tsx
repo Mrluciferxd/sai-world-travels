@@ -37,7 +37,7 @@ export function InteriorPage({
 
       <SiteHeader
         activeHref={activeHref}
-        ctaHref="/#contact"
+        ctaHref="/plan-your-journey"
         ctaLabel={siteContent.navigation.primaryAction.label}
         homeHref="/"
         homeLabel={siteContent.brand.homeLabel}

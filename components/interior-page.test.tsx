@@ -76,7 +76,7 @@ describe("InteriorPage", () => {
       screen.getByRole("link", { name: "About" }).getAttribute("aria-current"),
     ).toBeNull();
     expect(screen.getByRole("link", { name: "Plan your journey" }).getAttribute("href")).toBe(
-      "/#contact",
+      "/plan-your-journey",
     );
   });
 

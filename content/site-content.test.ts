@@ -48,8 +48,6 @@ describe("claim-safe site content", () => {
   it("keeps contextual actions on declared local sections", () => {
     const declaredTargets = new Set(siteSectionIds.map((id) => `#${id}`));
     const navigationTargets = [
-      siteContent.navigation.primaryAction.href,
-      siteContent.hero.primaryAction.href,
       siteContent.hero.secondaryAction.href,
       siteContent.hero.scrollAction.href,
       siteContent.footer.homeHref,
@@ -62,13 +60,13 @@ describe("claim-safe site content", () => {
     }
   });
 
-  it("keeps the enquiry channel explicitly pending and unavailable", () => {
-    expect(siteContent.contact.status).toBe("pending");
-    expect(siteContent.contact.action.enabled).toBe(false);
-    expect(siteContent.contact.action.href).toBeNull();
-    expect(siteContent.contact.availabilityNote).toMatch(
-      /coming next.*official details to be confirmed/i,
-    );
+  it("routes qualified visitors to the referral enquiry workflow", () => {
+    expect(siteContent.navigation.primaryAction.href).toBe("/plan-your-journey");
+    expect(siteContent.hero.primaryAction.href).toBe("/plan-your-journey");
+    expect(siteContent.contact.status).toBe("verified");
+    expect(siteContent.contact.action.enabled).toBe(true);
+    expect(siteContent.contact.action.href).toBe("/plan-your-journey");
+    expect(siteContent.contact.availabilityNote).toMatch(/private enquiry.*referred guests/i);
     expect(siteContent.footer.legalNotice.status).toBe("pending");
   });
 });

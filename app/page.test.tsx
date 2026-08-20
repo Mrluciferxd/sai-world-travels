@@ -42,7 +42,11 @@ describe("home page foundation", () => {
     });
 
     expect(planningLinks.length).toBeGreaterThanOrEqual(2);
-    expect(planningLinks.some((link) => link.getAttribute("href") === "#contact")).toBe(true);
+    expect(
+      planningLinks.every(
+        (link) => link.getAttribute("href") === "/plan-your-journey",
+      ),
+    ).toBe(true);
   });
 
   it("keeps every in-page navigation target connected to rendered content", () => {
@@ -59,15 +63,18 @@ describe("home page foundation", () => {
     }
   });
 
-  it("keeps the enquiry action unavailable until official details are ready", () => {
+  it("routes the closing enquiry action to the secure referral form", () => {
     render(<Home />);
 
-    const enquiryButton = screen.getByRole("button", {
+    const enquiryLinks = screen.getAllByRole("link", {
       name: /start planning your journey/i,
     });
 
-    expect(enquiryButton.hasAttribute("disabled")).toBe(true);
-    expect(screen.getByText(/official details to be confirmed/i)).toBeTruthy();
+    expect(enquiryLinks).toHaveLength(2);
+    expect(
+      enquiryLinks.every((link) => link.getAttribute("href") === "/plan-your-journey"),
+    ).toBe(true);
+    expect(screen.getByText(/private enquiry for referred guests/i)).toBeTruthy();
   });
 
   it("exposes the journey folio copy without labelling a generic container", () => {

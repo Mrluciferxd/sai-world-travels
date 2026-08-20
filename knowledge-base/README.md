@@ -7,7 +7,7 @@
 | Language | TypeScript |
 | Framework | Next.js App Router |
 | Styling | Tailwind CSS |
-| Database | Supabase Postgres (planned; not provisioned) |
+| Database | Supabase Postgres (local migration implemented; hosted project not provisioned) |
 | Hosting | Hostinger production; Vercel optional demo/preview only |
 | Auth | None for the public v1 website |
 | Test Runner | Vitest, React Testing Library, jsdom |
@@ -41,7 +41,7 @@ knowledge-base/      Project source of truth
 | Repo | `https://github.com/Mrluciferxd/sai-world-travels` |
 | Local workspace | `/Users/abhishekmishra/Downloads/Sai world Website` |
 | Current production domain | `saiworldtravels.in` (existing site is broken; replacement deployment is later) |
-| Primary CTA | Start Planning Your Journey / WhatsApp |
+| Primary CTA | Start Planning Your Journey → `/plan-your-journey` |
 | Backend | Supabase, introduced when the enquiry workflow is implemented |
 | Test Command | `pnpm test` (full local gate: `pnpm verify`) |
 | Demo | Optional Vercel preview after approval |
@@ -60,5 +60,6 @@ knowledge-base/      Project source of truth
 | `frontend.md` | Before changing the website UI |
 | `routes.md` | Before adding or changing public content routes |
 | `backend.md` | Before adding Supabase or enquiry handling |
+| `enquiries.md` | Before changing the referral form, API, validation, or schema |
 | `deployment.md` | Before any Vercel, Hostinger, or domain work |
 | `changelog.md` | When tracing project history |

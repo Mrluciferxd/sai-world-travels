@@ -54,7 +54,11 @@ export function SiteHeader({
         ))}
       </nav>
 
-      <a className="header-cta" href={ctaHref}>
+      <a
+        className="header-cta"
+        href={ctaHref}
+        aria-current={ctaHref === activeHref ? "page" : undefined}
+      >
         <span>{ctaLabel}</span>
         <ArrowIcon />
       </a>

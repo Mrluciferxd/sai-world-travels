@@ -25,11 +25,11 @@
 **Severity**: Low
 **Discovered**: 2026-08-20
 **Resolved**:
-**Symptom**: There is no project reference, migration history, or environment configuration for the planned enquiry backend.
-**Root Cause**: Backend provisioning is deliberately deferred until the relevant phase.
-**Workaround**: Keep Phase 1 frontend-only and define the integration boundary in documentation.
-**Fix**:
-**Regression Test**: Local migration and real insert-path tests when the backend phase starts.
+**Symptom**: The local enquiry API and migration exist, but there is no project reference, hosted migration history, or deployed environment configuration.
+**Root Cause**: External backend provisioning is deliberately deferred until the user approves a specific Supabase project.
+**Workaround**: Use mocked REST tests and the isolated PostgreSQL schema probes; the public API fails closed with a generic 503 when credentials are absent.
+**Fix**: Link the approved project, apply the committed migration through the CLI, run pgTAP/advisors, verify a real server insert, and prove anonymous select/insert denial before deployment.
+**Regression Test**: `app/api/enquiries/route.test.ts`, `lib/enquiries/repository.test.ts`, and `supabase/tests/database/referral_enquiries.test.sql` (database test authored but not yet executed).
 
 ## ISSUE-004: Supplied logo is not production-quality
 **Status**: Open
@@ -52,3 +52,25 @@
 **Workaround**: Keep dependencies within the declared engine range and use standard Next.js build/start commands.
 **Fix**: Re-run frozen install, verification, production start, and image smoke tests on Node 22 or 24 before production deployment.
 **Regression Test**: Hostinger preview-domain smoke test and runtime log review.
+
+## ISSUE-006: Enquiry rate limiting is not distributed
+**Status**: Open
+**Severity**: Medium
+**Discovered**: 2026-08-20
+**Resolved**:
+**Symptom**: Rate counters reset on a Node.js restart and are not shared if Hostinger runs more than one process; proxy headers are not yet verified against Hostinger's actual forwarding behavior.
+**Root Cause**: Phase 4 intentionally uses bounded process-local defense in depth until the production topology is known.
+**Workaround**: Keep the honeypot, strict origin/media/size/validation checks, per-client hashed limiter, and process-wide ceiling enabled. Do not describe the control as distributed or durable.
+**Fix**: Verify trusted proxy behavior on the Hostinger preview and add an upstream or durable limiter before higher-volume production exposure.
+**Regression Test**: `lib/enquiries/rate-limit.test.ts`, `app/api/enquiries/route.test.ts`, and Hostinger proxy/load smoke tests.
+
+## ISSUE-007: Enquiry retention and final privacy wording are not approved
+**Status**: Open
+**Severity**: Medium
+**Discovered**: 2026-08-20
+**Resolved**:
+**Symptom**: The schema records necessary enquiry details and consent time, but there is no owner-approved retention period, deletion process, Privacy page, or final legal wording.
+**Root Cause**: Official legal/content inputs have not been supplied.
+**Workaround**: Do not apply the migration to production. Keep the form limited to follow-up details and warn visitors not to share documents, identity data, or payment information.
+**Fix**: Approve retention, operational ownership, deletion procedure, and legal/privacy copy before launch.
+**Regression Test**: Pre-launch privacy/content review and controlled retention/deletion test.
