@@ -54,6 +54,7 @@ describe("SiteHeader", () => {
   it("renders labelled navigation, local links, and the supplied logo", () => {
     render(
       <SiteHeader
+        activeHref="/about"
         ctaHref="#contact"
         ctaLabel="Plan your journey"
         logoAlt="Sai World Travels"
@@ -72,6 +73,12 @@ describe("SiteHeader", () => {
     expect(screen.getByRole("link", { name: "About" }).getAttribute("href")).toBe(
       "/about",
     );
+    expect(screen.getByRole("link", { name: "About" }).getAttribute("aria-current")).toBe(
+      "page",
+    );
+    expect(
+      screen.getByRole("link", { name: "How we work" }).getAttribute("aria-current"),
+    ).toBeNull();
     expect(
       screen.getByRole("link", { name: "Plan your journey" }).getAttribute("href"),
     ).toBe("#contact");

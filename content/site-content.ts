@@ -8,11 +8,13 @@ export const siteSectionIds = [
 
 export type SiteSectionId = (typeof siteSectionIds)[number];
 export type SiteSectionHref = `#${SiteSectionId}`;
+export type CorePageHref = "/how-we-work" | "/travel-inspiration" | "/about";
+export type SiteHref = SiteSectionHref | CorePageHref;
 export type ContentStatus = "verified" | "pending";
 
 export interface NavigationItem {
   readonly label: string;
-  readonly href: SiteSectionHref;
+  readonly href: SiteHref;
 }
 
 export interface ServiceStep {
@@ -130,9 +132,9 @@ export const siteContent = {
     status: "verified",
     ariaLabel: "Main navigation",
     items: [
-      { label: "How we work", href: "#approach" },
-      { label: "Travel inspiration", href: "#inspiration" },
-      { label: "Our promise", href: "#about" },
+      { label: "How we work", href: "/how-we-work" },
+      { label: "Travel inspiration", href: "/travel-inspiration" },
+      { label: "About", href: "/about" },
     ],
     primaryAction: {
       label: "Plan your journey",

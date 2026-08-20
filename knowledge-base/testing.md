@@ -20,6 +20,7 @@ Tests must be deterministic and must not require uncontrolled network access.
 ## Test File Conventions
 - Place tests adjacent to the behaviour they cover, such as `app/page.test.tsx`.
 - Component contracts live in `components/components.test.tsx`; claim and navigation invariants live in `content/site-content.test.ts`.
+- Each public route has an adjacent render test; cross-route content invariants live in `content/page-content.test.ts`.
 - Use React Testing Library queries that reflect user-visible roles and text.
 - Browser-level verification should cover the phone-sized critical path.
 
@@ -38,9 +39,13 @@ Next Image is mocked only in render-level unit tests; real image optimization is
 ## Known Flaky Tests
 None — keep it that way.
 
-## Current Phase 2 Coverage
+## Current Phase 3 Coverage
 - Six homepage tests verify referral-led wording, accessible navigation/CTA targets, valid rendered hash targets, one primary heading, disabled enquiry state, hero semantics, non-interactive journey rows, journey inspiration, and absence of package pricing language.
 - Four component tests verify decorative icon semantics, eyebrow variants, labelled local navigation, supplied-logo rendering, and footer accessibility.
 - Four content tests verify positive referral language, no commerce/pricing claims, declared local navigation targets, and explicit pending contact/legal status.
 - Automated checks and the production build pass.
 - Browser verification at 390 x 844 and 1440 x 900 confirms the Private Journey Folio composition, route animations, meaningful content, no horizontal overflow, loaded logo, disabled enquiry state, and no application errors. Reduced-motion rules were statically inspected because this browser session did not expose media emulation.
+- Interior-shell tests cover the skip link, main landmark, home-safe links, supplied logo, folio heading, children, and active navigation state.
+- One test per core route covers unique metadata, heading hierarchy, route-specific structure, non-interactive informational rows, and current navigation.
+- Page-content tests enforce exactly three slugs, draft status, unique IDs/headings, positive referral language, and banned-claim absence.
+- Direct-load and navigation browser QA passed for `/how-we-work`, `/travel-inspiration`, and `/about` at 390 x 844 and 1440 x 900 with no horizontal overflow or application errors.

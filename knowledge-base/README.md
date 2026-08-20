@@ -58,6 +58,7 @@ knowledge-base/      Project source of truth
 | `architecture.md` | Before changing system boundaries |
 | `product.md` | Before changing copy, journeys, or calls to action |
 | `frontend.md` | Before changing the website UI |
+| `routes.md` | Before adding or changing public content routes |
 | `backend.md` | Before adding Supabase or enquiry handling |
 | `deployment.md` | Before any Vercel, Hostinger, or domain work |
 | `changelog.md` | When tracing project history |

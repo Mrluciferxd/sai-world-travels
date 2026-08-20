@@ -4,7 +4,7 @@
 The frontend presents a premium, approachable travel-concierge experience and guides referred visitors toward a personal enquiry.
 
 ## How it is structured
-The root App Router layout provides brand metadata. `app/page.tsx` composes the homepage from readonly data in `content/site-content.ts` and reusable Server Components in `components/`. `app/globals.css` implements the Private Journey Folio visual system, responsive route/checkpoint layout, finite motion, focus treatment, and reduced-motion fallback. `public/brand/sai-world-logo.jpeg` is the supplied temporary brand asset.
+The root App Router layout provides brand metadata. `app/page.tsx` composes the homepage from readonly data in `content/site-content.ts`. The three core routes use draft-safe data from `content/page-content.ts` and a shared `components/interior-page.tsx` shell. `app/globals.css` implements the Private Journey Folio visual system, distinct route compositions, finite motion, focus treatment, and reduced-motion fallback. `public/brand/sai-world-logo.jpeg` is the supplied temporary brand asset.
 
 ## Conventions and rules
 - Server Components by default; add `use client` only for interaction.
@@ -15,6 +15,8 @@ The root App Router layout provides brand metadata. `app/page.tsx` composes the 
 - Preserve editorial asymmetry, document-like folio edges, and route/checkpoint storytelling; avoid generic rounded-card grids, glass panels, stock travel icons, carousels, and uniform reveal effects.
 - Prefer CSS-only motion that communicates hierarchy. Guard all motion with `prefers-reduced-motion`, guard scroll timelines with `@supports`, and suppress hover-only choreography on coarse pointers.
 - Keep interactive touch targets at least 44 x 44 pixels and never hide essential content behind JavaScript animation.
+- Public interior routes must pass their own `activeHref`; current navigation is rendered server-side and must not require `usePathname` or a client boundary.
+- Keep the interior skip link and `#interior-main` landmark stable.
 
 ## Known gotchas
 - The supplied logo is a low-resolution JPEG with a white background. Use it safely in Phase 1, then produce an approved transparent/vector-quality version before launch.

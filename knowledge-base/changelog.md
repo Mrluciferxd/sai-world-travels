@@ -28,3 +28,17 @@
 - Consolidated the stylesheet into one canonical layer, removed journey arrows/hover affordances, wired typed logo data, corrected hero semantics, and added focus/mobile-motion safeguards before re-audit.
 - The final independent re-audit approved Phase 2 with no remaining blockers.
 - Branch `agent/phase-2-design-system` was pushed to GitHub after approval.
+
+## 2026-08-20 — Build Phase 3 core content routes
+**What**: Added How We Work, Travel Inspiration, and About routes with typed draft content, a shared accessible interior folio shell, real global route navigation, and three distinct responsive compositions.
+**Why**: Expand the approved homepage into a coherent website without inventing packages, destinations, history, contact details, testimonials, or other unsupported business claims.
+**Impact**: Visitors can directly load and navigate three substantive editorial routes; route copy remains explicitly draft pending owner approval; future public routes must use the shared navigation, skip-link, metadata, and claim-safety contracts.
+**Files Changed**: `app/how-we-work/*`, `app/travel-inspiration/*`, `app/about/*`, `app/globals.css`, `components/interior-page*`, `components/site-header.tsx`, component tests, `content/page-content*`, `content/site-content*`, and task-relevant `knowledge-base/*.md` files.
+**Tests**: Lint, typecheck, 28/28 Vitest tests, Webpack production build, `next start`, direct 200 responses for `/`, `/how-we-work`, `/travel-inspiration`, `/about`, and optimized-logo smoke passed. Cross-route browser QA at 390x844 and 1440x900 passed with one `h1`, correct `aria-current`, working home/contact links, no overflow, and no application errors. Final independent audit approved the phase.
+**Commit**: Pending Phase 3 approval commit.
+
+- Kept every route and shared shell server-rendered with no client routing or animation dependency.
+- Added a keyboard skip link and stable `#interior-main` landmark.
+- Gave each route a distinct process, mood-index, or manifesto composition rather than cloning one template.
+- Promoted the three real routes into typed global navigation while retaining contextual homepage anchors.
+- The final independent audit approved Phase 3 with no remaining blockers.

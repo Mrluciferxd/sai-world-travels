@@ -13,12 +13,14 @@ export type SiteHeaderProps = {
   logoAlt: string;
   logoSrc: string;
   navigation: readonly SiteNavigationItem[];
+  activeHref?: string;
   homeHref?: string;
   homeLabel?: string;
   navigationLabel?: string;
 };
 
 export function SiteHeader({
+  activeHref,
   ctaHref,
   ctaLabel,
   logoAlt,
@@ -42,7 +44,11 @@ export function SiteHeader({
 
       <nav className="desktop-nav" aria-label={navigationLabel}>
         {navigation.map((item) => (
-          <a key={`${item.href}-${item.label}`} href={item.href}>
+          <a
+            key={`${item.href}-${item.label}`}
+            href={item.href}
+            aria-current={item.href === activeHref ? "page" : undefined}
+          >
             {item.label}
           </a>
         ))}

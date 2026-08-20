@@ -37,10 +37,17 @@ describe("claim-safe site content", () => {
     );
   });
 
-  it("keeps main navigation on declared local sections", () => {
+  it("keeps global navigation on the three declared core routes", () => {
+    expect(siteContent.navigation.items.map((item) => item.href)).toEqual([
+      "/how-we-work",
+      "/travel-inspiration",
+      "/about",
+    ]);
+  });
+
+  it("keeps contextual actions on declared local sections", () => {
     const declaredTargets = new Set(siteSectionIds.map((id) => `#${id}`));
     const navigationTargets = [
-      ...siteContent.navigation.items.map((item) => item.href),
       siteContent.navigation.primaryAction.href,
       siteContent.hero.primaryAction.href,
       siteContent.hero.secondaryAction.href,

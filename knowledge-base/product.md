@@ -4,7 +4,7 @@
 This subsystem defines the website's audience, promise, conversion journey, content boundaries, and claims. It prevents the interface from drifting into a fixed-package or walk-in travel marketplace.
 
 ## How it is structured
-Phase 2 keeps the homepage sections—hero, approach, inspiration, promise, contact preview, and footer—in a typed `siteContent` model. Each content group carries a verified or pending status so unavailable contact/legal information cannot silently appear as approved copy. The later route hierarchy remains Home, How We Work, Travel Inspiration, Our Journeys, About, Plan Your Journey, Contact, Privacy, and Terms.
+The homepage sections live in the typed `siteContent` model. Phase 3 adds typed draft content for How We Work, Travel Inspiration, and About in `page-content.ts`; the drafts expand only known business facts and remain subject to owner copy approval. Plan Your Journey, Contact, Privacy, and Terms remain later workflow/release concerns; no Journeys case-study route exists until authentic material is supplied.
 
 ## Conventions and rules
 - Say that Sai World personally plans, arranges, and books the complete journey.
@@ -15,6 +15,7 @@ Phase 2 keeps the homepage sections—hero, approach, inspiration, promise, cont
 - Clearly label draft content during development.
 - Keep the contact action disabled until official details and the secure enquiry workflow are ready.
 - Put repeated or publishable copy in `content/site-content.ts`; page components should render it rather than duplicate it.
+- Keep route-specific draft copy in `content/page-content.ts` and preserve its `status: "draft"` marker until the owner approves it.
 
 ## Known gotchas
 - `Referral-only` can sound exclusionary if phrased as a rejection. Use warm, relationship-led language.
