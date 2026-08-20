@@ -6,7 +6,7 @@
 |---|---|
 | Language | TypeScript |
 | Framework | Next.js App Router |
-| Styling | Tailwind CSS |
+| Styling | Custom responsive CSS (Tailwind tooling retained but not used by the current UI) |
 | Database | Supabase Postgres (local migration implemented; hosted project not provisioned) |
 | Hosting | Hostinger production; Vercel optional demo/preview only |
 | Auth | None for the public v1 website |
@@ -33,7 +33,7 @@ knowledge-base/      Project source of truth
 - Commit and push at the end of each completed phase after verification.
 - Keep `sharp` installed while using `next/image` on self-hosted production.
 - Use `pnpm verify` for the complete local check: lint, typecheck, tests, and the production build.
-- Preserve the Private Journey Folio direction: bespoke editorial composition and purposeful CSS motion, not generic travel templates or AI-looking card grids.
+- Preserve the approved continuous-planning-canvas direction: verified copy, asymmetric information shapes, strong negative space, the supplied blue/orange palette, and at most two short finite motion effects. Do not reintroduce folio jargon, floating itinerary cards, synthetic travel SVGs, generic luxury-travel grids, or repeated hero silhouettes.
 
 ## Quick Facts
 | Key | Value |
@@ -42,7 +42,7 @@ knowledge-base/      Project source of truth
 | Local workspace | `/Users/abhishekmishra/Downloads/Sai world Website` |
 | Current production domain | `saiworldtravels.in` (existing site is broken; replacement deployment is later) |
 | Primary CTA | Start Planning Your Journey → `/plan-your-journey` |
-| Backend | Supabase, introduced when the enquiry workflow is implemented |
+| Backend | Supabase contract and migration implemented locally; hosted project not provisioned |
 | Test Command | `pnpm test` (full local gate: `pnpm verify`) |
 | Demo | Optional Vercel preview after approval |
 | Production | Hostinger Node.js Web App after approval |
@@ -59,7 +59,9 @@ knowledge-base/      Project source of truth
 | `product.md` | Before changing copy, journeys, or calls to action |
 | `frontend.md` | Before changing the website UI |
 | `routes.md` | Before adding or changing public content routes |
+| `seo.md` | Before changing metadata, indexing, structured data, or discovery routes |
 | `backend.md` | Before adding Supabase or enquiry handling |
 | `enquiries.md` | Before changing the referral form, API, validation, or schema |
 | `deployment.md` | Before any Vercel, Hostinger, or domain work |
+| `release-checklist.md` | Before provisioning, previewing, or launching any environment |
 | `changelog.md` | When tracing project history |

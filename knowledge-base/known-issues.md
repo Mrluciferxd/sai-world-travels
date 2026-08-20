@@ -38,8 +38,8 @@
 **Resolved**:
 **Symptom**: The supplied 200 x 200 JPEG has a white background and loses clarity at larger display sizes.
 **Root Cause**: No transparent high-resolution or vector brand master was supplied.
-**Workaround**: Phase 1 renders the exact supplied image at small sizes through `next/image`.
-**Fix**: Create and obtain approval for a clean transparent/vector-quality logo before launch.
+**Workaround**: Render the exact supplied image at small sizes through `next/image`, preserve its aspect ratio, and integrate the white background without stretching it. A generated cleanup was inspected and rejected because it changed the original mark and did not contain real transparency; it is not used by the application.
+**Fix**: Obtain and approve an exact transparent/vector-quality logo master before launch.
 **Regression Test**: Manual retina/mobile header and social-preview review.
 
 ## ISSUE-005: Hostinger runtime version not yet reproduced locally

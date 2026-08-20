@@ -3,7 +3,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import Home from "./page";
+import Home, { metadata } from "./page";
 
 vi.mock("next/image", () => ({
   default: ({ alt, priority, ...props }: React.ComponentProps<"img"> & { priority?: boolean }) => {
@@ -20,6 +20,10 @@ vi.mock("next/image", () => ({
 afterEach(cleanup);
 
 describe("home page foundation", () => {
+  it("declares the canonical home URL", () => {
+    expect(metadata.alternates?.canonical).toBe("/");
+  });
+
   it("explains the referral-led personalised travel model", () => {
     render(<Home />);
 
@@ -35,7 +39,9 @@ describe("home page foundation", () => {
   it("offers accessible navigation and enquiry calls to action", () => {
     render(<Home />);
 
-    expect(screen.getByRole("navigation", { name: /main navigation/i })).toBeTruthy();
+    expect(
+      screen.getByRole("navigation", { name: /^main navigation$/i }),
+    ).toBeTruthy();
 
     const planningLinks = screen.getAllByRole("link", {
       name: /plan(?:ning)? your journey|start planning your journey/i,
@@ -77,7 +83,7 @@ describe("home page foundation", () => {
     expect(screen.getByText(/private enquiry for referred guests/i)).toBeTruthy();
   });
 
-  it("exposes the journey folio copy without labelling a generic container", () => {
+  it("keeps the right hero area restrained to verified copy", () => {
     const { container } = render(<Home />);
 
     expect(
@@ -86,6 +92,13 @@ describe("home page foundation", () => {
     expect(container.querySelector(".hero-visual")?.hasAttribute("aria-label")).toBe(
       false,
     );
+    expect(container.querySelector(".hero-visual svg")).toBeNull();
+    expect(container.querySelector(".journey-desk-route")).toBeNull();
+    expect(container.querySelector(".journey-track")).toBeNull();
+    expect(screen.getByText("Imagine")).toBeTruthy();
+    expect(screen.getByText("Plan")).toBeTruthy();
+    expect(screen.getByText("Travel")).toBeTruthy();
+    expect(container.querySelector(".hero-visual")?.textContent).not.toMatch(/[✦✓]/);
   });
 
   it("presents inspiration without fixed package pricing", () => {
@@ -95,6 +108,7 @@ describe("home page foundation", () => {
     expect(screen.getByText("Family escapes")).toBeTruthy();
     expect(screen.getByText("Honeymoons")).toBeTruthy();
     expect(journeyRows).not.toHaveLength(0);
+    expect(journeyRows.every((row) => row.querySelector("span") === null)).toBe(true);
     expect(journeyRows.every((row) => row.querySelector("a, button, svg") === null)).toBe(
       true,
     );

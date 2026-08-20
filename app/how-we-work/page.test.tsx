@@ -20,6 +20,7 @@ describe("How We Work route", () => {
     const { container } = render(<HowWeWorkPage />);
 
     expect(metadata.title).toBe("How We Work");
+    expect(metadata.alternates?.canonical).toBe("/how-we-work");
     expect(
       screen.getByRole("heading", {
         level: 1,

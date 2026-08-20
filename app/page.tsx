@@ -1,18 +1,16 @@
+import type { Metadata } from "next";
+
 import { ArrowIcon } from "../components/arrow-icon";
 import { Eyebrow } from "../components/eyebrow";
 import { SiteFooter } from "../components/site-footer";
 import { SiteHeader } from "../components/site-header";
 import { siteContent } from "../content/site-content";
 
-function CompassMark() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 64 64">
-      <circle cx="32" cy="32" r="28" />
-      <path d="m40 23-5.1 11.9L23 40l5.1-11.9L40 23Z" />
-      <circle cx="32" cy="32" r="2.5" />
-    </svg>
-  );
-}
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   const {
@@ -57,30 +55,17 @@ export default function Home() {
                 {hero.secondaryAction.label}
               </a>
             </div>
-            <p className="relationship-note">
-              <span aria-hidden="true">✦</span>
-              {hero.relationshipNote}
-            </p>
+            <p className="relationship-note">{hero.relationshipNote}</p>
           </div>
 
           <div className="hero-visual">
-            <div className="sun-orbit" aria-hidden="true" />
-            <div className="route-line route-line-one" aria-hidden="true" />
-            <div className="route-line route-line-two" aria-hidden="true" />
-
             <div className="journey-card">
               <div className="journey-card-topline">
-                <CompassMark />
                 <span>{hero.journeyCard.topline}</span>
               </div>
               <p className="journey-label">{hero.journeyCard.label}</p>
               <p className="journey-title">{hero.journeyCard.title}</p>
-              <div className="journey-track" aria-hidden="true">
-                {hero.journeyCard.points.map((point) => (
-                  <span key={point} />
-                ))}
-              </div>
-              <div className="journey-points" aria-hidden="true">
+              <div className="journey-points">
                 {hero.journeyCard.points.map((point) => (
                   <span key={point}>{point}</span>
                 ))}
@@ -88,7 +73,6 @@ export default function Home() {
             </div>
 
             <div className="personal-touch-card">
-              <span className="personal-touch-icon" aria-hidden="true">✓</span>
               <p>
                 <strong>{hero.personalTouch.title}</strong>
                 <span>{hero.personalTouch.detail}</span>
@@ -142,7 +126,6 @@ export default function Home() {
           <ul className="journey-types" aria-label={inspiration.listLabel}>
             {inspiration.journeyTypes.map((journey) => (
               <li key={journey.number}>
-                <span>{journey.number}</span>
                 <strong>{journey.label}</strong>
               </li>
             ))}

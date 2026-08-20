@@ -5,7 +5,12 @@ import { pageContent } from "../../content/page-content";
 
 const page = pageContent["travel-inspiration"];
 
-export const metadata: Metadata = page.metadata;
+export const metadata: Metadata = {
+  ...page.metadata,
+  alternates: {
+    canonical: "/travel-inspiration",
+  },
+};
 
 export default function TravelInspirationPage() {
   return (
@@ -13,7 +18,6 @@ export default function TravelInspirationPage() {
       activeHref="/travel-inspiration"
       emphasizedTitle={page.intro.emphasizedTitle}
       eyebrow={page.intro.eyebrow}
-      folioNumber="04"
       intro={page.intro.summary}
       sectionAriaLabel={page.sectionLabel}
       title={page.intro.title}

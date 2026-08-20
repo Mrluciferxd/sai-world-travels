@@ -13,10 +13,10 @@ export type InteriorPageProps = {
   children: ReactNode;
   emphasizedTitle: string;
   eyebrow: string;
-  folioNumber: string;
   intro: string;
   title: string;
   sectionAriaLabel?: string;
+  variant?: "default" | "enquiry";
 };
 
 export function InteriorPage({
@@ -24,13 +24,18 @@ export function InteriorPage({
   children,
   emphasizedTitle,
   eyebrow,
-  folioNumber,
   intro,
   title,
   sectionAriaLabel,
+  variant = "default",
 }: InteriorPageProps) {
+  const shellClassName =
+    variant === "enquiry"
+      ? "site-shell interior-shell interior-shell-enquiry"
+      : "site-shell interior-shell";
+
   return (
-    <div className="site-shell interior-shell">
+    <div className={shellClassName}>
       <a className="skip-link" href="#interior-main">
         Skip to main content
       </a>
@@ -56,10 +61,6 @@ export function InteriorPage({
           </div>
 
           <div className="interior-masthead-heading">
-            <p className="interior-folio-index">
-              <span>Folio</span>
-              {folioNumber}
-            </p>
             <Eyebrow tone="dark" withRule>
               {eyebrow}
             </Eyebrow>

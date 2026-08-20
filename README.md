@@ -26,9 +26,12 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Copy `.env.example` to `.env.local` for local enquiry integration. The public
-site origin belongs in `SITE_URL`; `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are
-server-only. Never expose the secret through a `NEXT_PUBLIC_` variable.
+Copy `.env.example` to `.env.local` for local enquiry integration. `SITE_URL`
+is the exact deployed origin accepted by the enquiry API;
+`CANONICAL_SITE_URL` is the final public origin used by metadata; and
+`SITE_INDEXING_ENABLED` must remain `false` for local, demo, and temporary
+environments. `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are server-only. Never
+expose the secret through a `NEXT_PUBLIC_` variable.
 
 ## Verification commands
 

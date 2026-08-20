@@ -20,6 +20,7 @@ describe("Travel Inspiration route", () => {
     const { container } = render(<TravelInspirationPage />);
 
     expect(metadata.title).toBe("Travel Inspiration");
+    expect(metadata.alternates?.canonical).toBe("/travel-inspiration");
     expect(
       screen.getByRole("heading", {
         level: 1,

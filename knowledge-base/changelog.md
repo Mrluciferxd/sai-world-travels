@@ -58,3 +58,18 @@
 - Enables RLS, creates no public policies, revokes `PUBLIC`/`anon`/`authenticated`, and narrows `service_role` to insert/select and status-only update.
 - Keeps production Supabase, Vercel, Hostinger, and DNS untouched.
 - Independent code/security/runtime review and the final documentation re-audit approved Phase 4.
+
+## 2026-08-20 — Build Phase 5 resilient discovery and original visual system
+**What**: Added fail-closed SEO/discovery, native mobile navigation, branded 404, liveness and portable response protections, a Hostinger release runbook, and replaced the rejected folio design with an independently approved continuous planning canvas.
+**Why**: Complete local production readiness without indexing unfinished environments, relying on Vercel-only behavior, or shipping a generic AI-looking travel template.
+**Impact**: Five public pages now expose explicit canonicals and claim-safe discovery; previews default to noindex; APIs remain noindex; the mobile critical path works through native disclosure; the enquiry route is task-first; future visual changes must preserve distinct content silhouettes and may not reintroduce synthetic travel art or folio/card patterns. External content, logo, Supabase, Hostinger, indexing, and DNS gates remain.
+**Files Changed**: `README.md`, `.env.example`, all five public page metadata/tests, `app/layout.tsx`, `app/globals.css`, discovery metadata routes/tests, `app/not-found*`, `app/api/health/*`, enquiry noindex handling/tests, shared header/interior components/tests, `next.config.ts` and test, and task-relevant `knowledge-base/*.md` files.
+**Tests**: `pnpm verify` passed: lint, typecheck, 78/78 Vitest tests, and Webpack production build. Final `next start` probes passed for five public pages, discovery files, optimized image, liveness, 404, API 405/415/400/413/429/503, headers, canonical/noindex/JSON-LD, secret-leak bans, and no framework disclosure. Browser QA at 390x844 and 1440x900 passed for native Menu, no overflow, task-first controls, final wrapping, and zero production console errors. Independent visual re-audit approved the composition. No Lighthouse score was run locally.
+**Commit**: `pending`
+
+- Split `SITE_URL` from `CANONICAL_SITE_URL` and required exact `SITE_INDEXING_ENABLED=true` before public indexing.
+- Added a sitemap of exactly five public routes, fail-closed robots, browser-mode manifest, and minimal Organization/WebSite JSON-LD without unverified claims.
+- Added portable CSP/referrer/frame/content-type/permissions headers, API noindex, powered-by suppression, and intentional pre-cutover HSTS deferral.
+- Rejected the first folio/orbit/card redesign, then removed synthetic route/airplane art, repeated dossier silhouettes, Arial Narrow, and decorative reveal choreography.
+- Kept the original supplied logo after rejecting an inaccurate generated cleanup; an exact transparent/vector master remains a launch input.
+- Added the Hostinger temporary-domain, Supabase, indexing, custom-domain, and non-destructive rollback gates without deploying or changing external resources.

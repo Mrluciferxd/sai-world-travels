@@ -21,6 +21,7 @@ function json(body: EnquiryResponse, status: number, headers?: HeadersInit) {
     status,
     headers: {
       "Cache-Control": "no-store",
+      "X-Robots-Tag": "noindex, nofollow",
       ...headers,
     },
   });

@@ -28,7 +28,7 @@ GitHub --> optional Vercel demo/preview
 ## Layers & Responsibilities
 | Layer | Technology | Responsibility |
 |---|---|---|
-| Frontend | Next.js, React, Tailwind CSS | Responsive pages and conversion journey |
+| Frontend | Next.js, React, custom CSS | Responsive pages and conversion journey |
 | Backend/API | Next.js server boundary | Validate and submit enquiries without exposing privileged secrets |
 | Database | Supabase Postgres | Store minimum enquiry and follow-up state after the migration is applied |
 | Auth | None in public v1 | No customer accounts or login |
@@ -45,6 +45,8 @@ The visitor reads mostly static content, chooses to start planning, supplies ref
 - Typed content structures for destinations and stories instead of a package database.
 - Server-only backend credentials and least-privilege database access.
 - Static-first rendering for speed and resilience.
+- Fail-closed indexing with separate deployed-origin and production-canonical configuration.
+- JavaScript-independent mobile navigation through native disclosure semantics.
 - Standard Next.js Node runtime boundaries so the backend remains Hostinger-compatible.
 - `sharp` as a production dependency for self-hosted `next/image` optimization.
 
@@ -53,7 +55,7 @@ The visitor reads mostly static content, chooses to start planning, supplies ref
 - Vercel may host optional demo/preview builds later.
 - Hostinger Node.js Web App is the final production target.
 - Supabase provides the planned enquiry database; the local migration exists, but no hosted project is linked or changed yet.
-- WhatsApp and telephone links provide personal contact; availability is outside the site's control.
+- A later human phone or WhatsApp follow-up occurs only after an enquiry; no unverified direct-contact link is published.
 
 ## Scalability & Limits
 The content-led site can scale through static delivery. Enquiry volume is expected to be modest and high-touch. The current rate limiter is process-local and resets on restart, so production still requires Hostinger proxy verification and an upstream or durable control before higher-volume exposure. If operational needs expand, introduce authenticated staff tools separately rather than exposing administration in the public site.
@@ -64,3 +66,4 @@ The content-led site can scale through static delivery. Enquiry volume is expect
 - Do not let anonymous browser clients read the enquiry table.
 - Do not collect documents or payment data through the public enquiry flow.
 - Do not connect the domain until the replacement is verified and approved.
+- Do not enable indexing on demo, preview, temporary-domain, or incomplete production environments.

@@ -16,6 +16,7 @@ export type SiteHeaderProps = {
   activeHref?: string;
   homeHref?: string;
   homeLabel?: string;
+  mobileNavigationLabel?: string;
   navigationLabel?: string;
 };
 
@@ -28,6 +29,7 @@ export function SiteHeader({
   navigation,
   homeHref = "#top",
   homeLabel = "Sai World Travels home",
+  mobileNavigationLabel = "Menu",
   navigationLabel = "Main navigation",
 }: SiteHeaderProps) {
   return (
@@ -53,6 +55,45 @@ export function SiteHeader({
           </a>
         ))}
       </nav>
+
+      <details className="mobile-folio-nav">
+        <summary>
+          <span>{mobileNavigationLabel}</span>
+          <span className="mobile-folio-checkpoints" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+        </summary>
+
+        <nav aria-label={`${navigationLabel} mobile`}>
+          {navigation.map((item, index) => {
+            const routeNumber = String(index + 1).padStart(2, "0");
+
+            return (
+              <a
+                key={`mobile-${item.href}-${item.label}`}
+                href={item.href}
+                aria-label={`${routeNumber} — ${item.label}`}
+                aria-current={item.href === activeHref ? "page" : undefined}
+              >
+                <span aria-hidden="true">{routeNumber}</span>
+                <strong aria-hidden="true">{item.label}</strong>
+              </a>
+            );
+          })}
+          <a
+            className="mobile-folio-cta"
+            href={ctaHref}
+            aria-label={`04 — ${ctaLabel}`}
+            aria-current={ctaHref === activeHref ? "page" : undefined}
+          >
+            <span aria-hidden="true">04</span>
+            <strong aria-hidden="true">{ctaLabel}</strong>
+            <ArrowIcon />
+          </a>
+        </nav>
+      </details>
 
       <a
         className="header-cta"

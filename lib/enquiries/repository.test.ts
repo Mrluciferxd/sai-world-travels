@@ -12,8 +12,10 @@ const originalKey = process.env.SUPABASE_SECRET_KEY;
 
 afterEach(() => {
   vi.unstubAllGlobals();
-  process.env.SUPABASE_URL = originalUrl;
-  process.env.SUPABASE_SECRET_KEY = originalKey;
+  if (originalUrl === undefined) delete process.env.SUPABASE_URL;
+  else process.env.SUPABASE_URL = originalUrl;
+  if (originalKey === undefined) delete process.env.SUPABASE_SECRET_KEY;
+  else process.env.SUPABASE_SECRET_KEY = originalKey;
 });
 
 const enquiry = {

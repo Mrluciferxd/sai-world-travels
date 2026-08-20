@@ -17,9 +17,10 @@ afterEach(cleanup);
 
 describe("Plan Your Journey route", () => {
   it("renders unique metadata, one primary heading, and the referral form", () => {
-    render(<PlanYourJourneyPage />);
+    const { container } = render(<PlanYourJourneyPage />);
 
     expect(metadata.title).toBe("Plan Your Journey");
+    expect(metadata.alternates?.canonical).toBe("/plan-your-journey");
     expect(
       screen.getByRole("heading", {
         level: 1,
@@ -29,6 +30,8 @@ describe("Plan Your Journey route", () => {
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     expect(screen.getByRole("region", { name: "Referral enquiry" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Send referral enquiry" })).toBeTruthy();
+    expect(container.querySelector(".interior-shell-enquiry")).toBeTruthy();
+    expect(screen.queryByText(/folio/i)).toBeNull();
   });
 
   it("warns against collecting sensitive travel or payment data", () => {

@@ -5,7 +5,12 @@ import { pageContent } from "../../content/page-content";
 
 const page = pageContent["how-we-work"];
 
-export const metadata: Metadata = page.metadata;
+export const metadata: Metadata = {
+  ...page.metadata,
+  alternates: {
+    canonical: "/how-we-work",
+  },
+};
 
 export default function HowWeWorkPage() {
   return (
@@ -13,7 +18,6 @@ export default function HowWeWorkPage() {
       activeHref="/how-we-work"
       emphasizedTitle={page.intro.emphasizedTitle}
       eyebrow={page.intro.eyebrow}
-      folioNumber="03"
       intro={page.intro.summary}
       sectionAriaLabel={page.sectionLabel}
       title={page.intro.title}

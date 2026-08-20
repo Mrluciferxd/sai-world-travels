@@ -20,6 +20,7 @@ describe("About route", () => {
     const { container } = render(<AboutPage />);
 
     expect(metadata.title).toBe("About");
+    expect(metadata.alternates?.canonical).toBe("/about");
     expect(
       screen.getByRole("heading", {
         level: 1,

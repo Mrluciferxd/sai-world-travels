@@ -5,7 +5,12 @@ import { pageContent } from "../../content/page-content";
 
 const page = pageContent.about;
 
-export const metadata: Metadata = page.metadata;
+export const metadata: Metadata = {
+  ...page.metadata,
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 export default function AboutPage() {
   return (
@@ -13,7 +18,6 @@ export default function AboutPage() {
       activeHref="/about"
       emphasizedTitle={page.intro.emphasizedTitle}
       eyebrow={page.intro.eyebrow}
-      folioNumber="05"
       intro={page.intro.summary}
       sectionAriaLabel={page.sectionLabel}
       title={page.intro.title}

@@ -63,12 +63,12 @@
 
 ## Decision: Private Journey Folio with CSS-only progressive motion
 **Date**: 2026-08-20
-**Status**: Accepted
+**Status**: Superseded
 **Context**: The user explicitly rejected generic AI-looking travel templates and asked for distinctive, creative desktop and mobile animation.
 **Decision**: Use a bespoke editorial folio composition built around a continuous route/checkpoint motif, the supplied blue/orange palette, asymmetry, and purposeful finite CSS motion. Keep motion inside `prefers-reduced-motion: no-preference`, guard scroll timelines with `@supports`, and keep essential content visible without JavaScript.
 **Alternatives Considered**: Package-card grids, stock travel imagery, generic glass panels, uniform fade-up reveals, autoplay carousels, parallax, and a client animation library.
 **Consequences**: The site has a recognisable visual language without runtime animation dependencies. Every new route must preserve reduced-motion, touch, focus, overflow, and performance checks.
-**Superseded By**: None.
+**Superseded By**: Decision: Continuous planning canvas with restrained motion.
 
 ## Decision: Server-only referral enquiry persistence
 **Date**: 2026-08-20
@@ -86,4 +86,31 @@
 **Decision**: Use an inaccessible honeypot, exact same-origin JSON requests, a 16 KiB streaming cap, strict shared validation, a bounded per-client hash limiter, and a separate process-wide ceiling. Treat the limiter as best-effort only and require Hostinger trusted-proxy verification plus an upstream or durable limit before higher-volume production exposure.
 **Alternatives Considered**: No abuse controls, CAPTCHA at first launch, raw-IP database retention, and an unverified distributed cache dependency.
 **Consequences**: Local and single-process abuse is bounded without collecting another persistent identifier. Limits reset on restart and cannot coordinate across processes, so documentation and production checks must not overstate protection.
+**Superseded By**: None.
+
+## Decision: Fail-closed discovery with separate deployment and canonical origins
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: Vercel may host a demo and Hostinger will first use a temporary domain, but both must describe the final brand domain without accidentally accepting the wrong enquiry origin or exposing unfinished content to search engines.
+**Decision**: Use `SITE_URL` solely for the exact deployed same-origin/API boundary, `CANONICAL_SITE_URL` for production canonical discovery, and `SITE_INDEXING_ENABLED` as an explicit build-time switch that defaults to disabled. Keep APIs noindex in every environment.
+**Alternatives Considered**: Reusing one URL for both security and SEO, deriving behavior from Vercel-specific variables, or allowing indexing by default.
+**Consequences**: Demo and temporary environments remain host-portable and fail closed, while production canonicals stay stable. Every environment must configure the three values deliberately and redeploy when indexing changes.
+**Superseded By**: None.
+
+## Decision: Native resilient navigation and portable response protections
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: The mobile critical path, missing-route recovery, and baseline response security must continue to work on self-hosted Next.js without client JavaScript or Vercel-only controls.
+**Decision**: Render mobile navigation with native `details`/`summary`, add a branded App Router not-found page, expose a constant liveness route, and configure standard Next.js response headers with fail-closed noindex behavior. Defer HSTS until custom-domain HTTPS is verified.
+**Alternatives Considered**: A client-state hamburger, no custom 404, an environment-revealing readiness endpoint, Vercel-only firewall/header configuration, or premature HSTS.
+**Consequences**: Navigation and recovery degrade safely and the same Node application remains Hostinger-portable. CSP, noindex, 404, and liveness behavior must be proven under `next start` after framework changes.
+**Superseded By**: None.
+
+## Decision: Continuous planning canvas with restrained motion
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: The user rejected the folio/card/orbit treatment as AI-generated. Live audits showed repeated luxury-editorial silhouettes, synthetic travel artifacts, theatrical spacing, and too much decorative motion across the homepage, interior routes, and enquiry task.
+**Decision**: Use a warm-paper planning canvas built from verified copy, the supplied blue/orange palette, strong negative space, and structurally distinct page sections. Keep the homepage hero text-led with no synthetic travel illustration; render Inspiration as a numberless asymmetric word field; give the enquiry route a typed task-first shell variant; use an ordinary Arial/Helvetica system stack; limit motion to two short finite effects with reduced-motion/coarse-pointer fallbacks.
+**Alternatives Considered**: Retaining the Private Journey Folio, adding another CSS/SVG travel illustration, generated travel photography, a new unapproved font dependency, or applying only colour/spacing tweaks.
+**Consequences**: The composition is less ornamental and better reflects human planning without inventing visual proof. New sections must have a content-specific silhouette and may not reintroduce folio numbers, synthetic route/airplane art, repeated dossier rows, hidden-by-default content, or generic travel cards. The supplied logo still needs an exact transparent/vector master before launch.
 **Superseded By**: None.

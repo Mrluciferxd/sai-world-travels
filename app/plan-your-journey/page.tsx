@@ -6,6 +6,9 @@ import { ReferralEnquiryForm } from "../../components/referral-enquiry-form";
 export const metadata: Metadata = {
   title: "Plan Your Journey",
   description: "Begin a private, referral-led travel enquiry with Sai World Travels.",
+  alternates: {
+    canonical: "/plan-your-journey",
+  },
 };
 
 export default function PlanYourJourneyPage() {
@@ -14,10 +17,10 @@ export default function PlanYourJourneyPage() {
       activeHref="/plan-your-journey"
       emphasizedTitle="with a conversation."
       eyebrow="A private introduction"
-      folioNumber="06"
       intro="Share the essential details of the journey you have in mind and the trusted introduction that brought you here."
       sectionAriaLabel="Referral enquiry"
       title="Your journey begins"
+      variant="enquiry"
     >
       <div className="enquiry-page-layout">
         <aside className="enquiry-page-note" aria-labelledby="enquiry-note-title">

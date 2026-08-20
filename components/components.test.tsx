@@ -51,7 +51,52 @@ describe("Eyebrow", () => {
 });
 
 describe("SiteHeader", () => {
-  it("renders labelled navigation, local links, and the supplied logo", () => {
+  it("renders desktop and native mobile navigation with current-page semantics", () => {
+    const { container } = render(
+      <SiteHeader
+        activeHref="/about"
+        ctaHref="/plan-your-journey"
+        ctaLabel="Plan your journey"
+        logoAlt="Sai World Travels"
+        logoSrc="/brand/sai-world-logo.jpeg"
+        navigation={[
+          { href: "/how-we-work", label: "How we work" },
+          { href: "/travel-inspiration", label: "Travel inspiration" },
+          { href: "/about", label: "About" },
+        ]}
+      />,
+    );
+
+    expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeTruthy();
+    expect(screen.getByRole("navigation", { name: "Main navigation mobile" })).toBeTruthy();
+    expect(container.querySelector("details.mobile-folio-nav")).toBeTruthy();
+    expect(container.querySelector("summary")?.textContent).toContain("Menu");
+
+    const mobileRoutes = [
+      ["01 — How we work", "/how-we-work"],
+      ["02 — Travel inspiration", "/travel-inspiration"],
+      ["03 — About", "/about"],
+      ["04 — Plan your journey", "/plan-your-journey"],
+    ] as const;
+
+    for (const [name, href] of mobileRoutes) {
+      expect(screen.getByRole("link", { name }).getAttribute("href")).toBe(href);
+    }
+
+    expect(screen.getByRole("link", { name: "About" }).getAttribute("aria-current")).toBe(
+      "page",
+    );
+    expect(
+      screen.getByRole("link", { name: "03 — About" }).getAttribute("aria-current"),
+    ).toBe("page");
+    expect(
+      screen.getByRole("link", { name: "04 — Plan your journey" }).getAttribute(
+        "aria-current",
+      ),
+    ).toBeNull();
+  });
+
+  it("renders supplied link targets and the supplied logo", () => {
     render(
       <SiteHeader
         activeHref="/about"
@@ -85,6 +130,32 @@ describe("SiteHeader", () => {
     expect(screen.getByAltText("Sai World Travels").getAttribute("src")).toBe(
       "/brand/sai-world-logo.jpeg",
     );
+  });
+
+  it("marks the planning action current in both navigation modes", () => {
+    render(
+      <SiteHeader
+        activeHref="/plan-your-journey"
+        ctaHref="/plan-your-journey"
+        ctaLabel="Plan your journey"
+        logoAlt="Sai World Travels"
+        logoSrc="/brand/sai-world-logo.jpeg"
+        navigation={[
+          { href: "/how-we-work", label: "How we work" },
+          { href: "/travel-inspiration", label: "Travel inspiration" },
+          { href: "/about", label: "About" },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getByRole("link", { name: "Plan your journey" }).getAttribute("aria-current"),
+    ).toBe("page");
+    expect(
+      screen.getByRole("link", { name: "04 — Plan your journey" }).getAttribute(
+        "aria-current",
+      ),
+    ).toBe("page");
   });
 });
 

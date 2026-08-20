@@ -4,7 +4,7 @@
 The referral-enquiry subsystem gives a referred traveller one private, non-commerce path to share the minimum details needed for a personal follow-up. It does not quote, confirm, book, take payment, or collect travel documents.
 
 ## How it is structured
-The `/plan-your-journey` route renders `ReferralEnquiryForm` inside the shared folio shell. The client posts the typed `EnquiryRequest` JSON to `POST /api/enquiries`. The route applies media, origin, size, rate, honeypot, and shared validation checks before `repository.ts` inserts into `public.referral_enquiries`. The database row contains an internal UUID, name, phone, optional email, referral context, travel intent, optional timing, consent timestamp, creation timestamp, and a constrained follow-up status.
+The `/plan-your-journey` route renders `ReferralEnquiryForm` inside the shared shell's typed task-first `enquiry` variant. The client posts the typed `EnquiryRequest` JSON to `POST /api/enquiries`. The route applies media, origin, size, rate, honeypot, and shared validation checks before `repository.ts` inserts into `public.referral_enquiries`. The database row contains an internal UUID, name, phone, optional email, referral context, travel intent, optional timing, consent timestamp, creation timestamp, and a constrained follow-up status.
 
 ## Conventions and rules
 - Phone is the required follow-up channel; email is optional.

@@ -25,7 +25,6 @@ function renderInteriorPage() {
       activeHref="/how-we-work"
       emphasizedTitle="personally considered."
       eyebrow="The private journey"
-      folioNumber="02"
       intro="A supplied introduction for this route."
       sectionAriaLabel="Route details"
       title="Every detail,"
@@ -39,7 +38,7 @@ function renderInteriorPage() {
 }
 
 describe("InteriorPage", () => {
-  it("renders the route heading, folio marker, introduction, and children", () => {
+  it("renders the route heading, introduction, and children without folio ceremony", () => {
     renderInteriorPage();
 
     expect(
@@ -48,10 +47,28 @@ describe("InteriorPage", () => {
         name: /every detail, personally considered\./i,
       }),
     ).toBeTruthy();
-    expect(screen.getByText("02")).toBeTruthy();
+    expect(screen.queryByText(/folio/i)).toBeNull();
     expect(screen.getByText("A supplied introduction for this route.")).toBeTruthy();
     expect(screen.getByRole("region", { name: "Route details" })).toBeTruthy();
     expect(screen.getByRole("heading", { level: 2, name: "Supplied child content" })).toBeTruthy();
+  });
+
+  it("adds the typed enquiry shell variant without changing landmarks", () => {
+    const { container } = render(
+      <InteriorPage
+        emphasizedTitle="with a conversation."
+        eyebrow="A private introduction"
+        intro="A supplied enquiry introduction."
+        title="Your journey begins"
+        variant="enquiry"
+      >
+        <p>Enquiry child</p>
+      </InteriorPage>,
+    );
+
+    expect(container.querySelector(".interior-shell-enquiry")).toBeTruthy();
+    expect(screen.getByRole("main").getAttribute("id")).toBe("interior-main");
+    expect(screen.queryByText(/folio/i)).toBeNull();
   });
 
   it("renders global chrome with home-safe navigation targets", () => {

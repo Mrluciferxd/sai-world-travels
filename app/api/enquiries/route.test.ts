@@ -56,9 +56,12 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllGlobals();
-  process.env.SUPABASE_URL = originalUrl;
-  process.env.SUPABASE_SECRET_KEY = originalKey;
-  process.env.SITE_URL = originalSiteUrl;
+  if (originalUrl === undefined) delete process.env.SUPABASE_URL;
+  else process.env.SUPABASE_URL = originalUrl;
+  if (originalKey === undefined) delete process.env.SUPABASE_SECRET_KEY;
+  else process.env.SUPABASE_SECRET_KEY = originalKey;
+  if (originalSiteUrl === undefined) delete process.env.SITE_URL;
+  else process.env.SITE_URL = originalSiteUrl;
 });
 
 describe("POST /api/enquiries", () => {
@@ -66,6 +69,7 @@ describe("POST /api/enquiries", () => {
     const response = await POST(request(validBody));
 
     expect(response.status).toBe(201);
+    expect(response.headers.get("x-robots-tag")).toBe("noindex, nofollow");
     await expect(response.json()).resolves.toEqual({ ok: true });
     expect(fetch).toHaveBeenCalledOnce();
   });
