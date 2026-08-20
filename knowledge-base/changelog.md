@@ -50,7 +50,7 @@
 **Impact**: All planning CTAs now route to `/plan-your-journey`; successful submissions can persist minimal follow-up data once an approved Supabase project is configured. Hosted migration, retention/legal approval, durable abuse protection, and production deployment remain explicit gates.
 **Files Changed**: `.env.example`, `.gitignore`, `app/api/enquiries/*`, `app/plan-your-journey/*`, `app/page*`, `app/globals.css`, `components/referral-enquiry-form*`, shared header/interior components and tests, `content/site-content*`, `lib/enquiries/*`, `supabase/migrations/*`, `supabase/tests/database/*`, `README.md`, and task-relevant `knowledge-base/*.md` files.
 **Tests**: Focused Phase 4 frontend tests passed (7 form + 2 route = 9/9); API/validation/repository/rate tests and the full 55/55 Vitest suite passed. Lint, typecheck, Webpack build, production runtime, responsive browser QA, and independent code/security review passed. The migration applied to isolated PostgreSQL 17 and passed catalog, privilege, constraint, and boundary probes. The 21-test pgTAP file is authored but not executed because the pgTAP extension/Supabase test harness is unavailable.
-**Commit**: Pending phase approval.
+**Commit**: `d84371e`
 
 - Uses current server-only `sb_secret_*` semantics with an `apikey` header and an eight-second request timeout.
 - Requires exact same-origin JSON, rejects compressed/oversized/malformed payloads, and never exposes upstream details or a database identifier.
