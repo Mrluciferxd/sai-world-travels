@@ -65,7 +65,7 @@
 **Impact**: Five public pages now expose explicit canonicals and claim-safe discovery; previews default to noindex; APIs remain noindex; the mobile critical path works through native disclosure; the enquiry route is task-first; future visual changes must preserve distinct content silhouettes and may not reintroduce synthetic travel art or folio/card patterns. External content, logo, Supabase, Hostinger, indexing, and DNS gates remain.
 **Files Changed**: `README.md`, `.env.example`, all five public page metadata/tests, `app/layout.tsx`, `app/globals.css`, discovery metadata routes/tests, `app/not-found*`, `app/api/health/*`, enquiry noindex handling/tests, shared header/interior components/tests, `next.config.ts` and test, and task-relevant `knowledge-base/*.md` files.
 **Tests**: `pnpm verify` passed: lint, typecheck, 78/78 Vitest tests, and Webpack production build. Final `next start` probes passed for five public pages, discovery files, optimized image, liveness, 404, API 405/415/400/413/429/503, headers, canonical/noindex/JSON-LD, secret-leak bans, and no framework disclosure. Browser QA at 390x844 and 1440x900 passed for native Menu, no overflow, task-first controls, final wrapping, and zero production console errors. Independent visual re-audit approved the composition. No Lighthouse score was run locally.
-**Commit**: `pending`
+**Commit**: `eed7a97`
 
 - Split `SITE_URL` from `CANONICAL_SITE_URL` and required exact `SITE_INDEXING_ENABLED=true` before public indexing.
 - Added a sitemap of exactly five public routes, fail-closed robots, browser-mode manifest, and minimal Organization/WebSite JSON-LD without unverified claims.
