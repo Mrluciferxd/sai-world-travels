@@ -18,7 +18,7 @@
 **Impact**: Homepage copy now comes from one typed source of truth; desktop and mobile use a bespoke route/checkpoint composition; new routes must reuse the component, content, accessibility, and motion contracts.
 **Files Changed**: `app/page.tsx`, `app/page.test.tsx`, `app/globals.css`, `components/*.tsx`, `content/*.ts`, `next.config.ts`, and task-relevant `knowledge-base/*.md` files.
 **Tests**: `pnpm lint`, `pnpm typecheck`, `pnpm test` (14/14 passed), `pnpm build`, production `next start`, homepage and optimized-image smoke tests passed; post-consolidation browser QA at 390x844 and 1440x900 passed with no horizontal overflow, false journey controls, or application errors; final independent re-audit approved the phase.
-**Commit**: Pending Phase 2 approval commit.
+**Commit**: `a31e48c`
 
 - Kept all components Server Component-compatible and introduced no client animation library or host-specific API.
 - Kept the enquiry action disabled and all unverified contact/legal fields explicitly pending.
@@ -27,3 +27,4 @@
 - The first audit candidate was rejected for CSS consolidation, false journey-row interactivity, typed-logo use, hero semantics, button focus, and mobile-motion issues; all findings are release blockers until the re-audit passes.
 - Consolidated the stylesheet into one canonical layer, removed journey arrows/hover affordances, wired typed logo data, corrected hero semantics, and added focus/mobile-motion safeguards before re-audit.
 - The final independent re-audit approved Phase 2 with no remaining blockers.
+- Branch `agent/phase-2-design-system` was pushed to GitHub after approval.
