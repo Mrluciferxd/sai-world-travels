@@ -1,40 +1,8 @@
-import Image from "next/image";
-
-const serviceSteps = [
-  {
-    number: "01",
-    title: "A personal introduction",
-    description:
-      "You arrive through someone who already knows the care we put into every journey.",
-  },
-  {
-    number: "02",
-    title: "A thoughtful conversation",
-    description:
-      "We listen to your pace, priorities, preferences, and the moments you want the trip to hold.",
-  },
-  {
-    number: "03",
-    title: "One journey, handled fully",
-    description:
-      "We shape the itinerary, arrange the details, and stay personally involved from planning to return.",
-  },
-] as const;
-
-const journeyTypes = [
-  "Family escapes",
-  "Celebration journeys",
-  "Honeymoons",
-  "Unhurried getaways",
-] as const;
-
-function ArrowIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 20 20">
-      <path d="M4 10h11m-4-4 4 4-4 4" />
-    </svg>
-  );
-}
+import { ArrowIcon } from "../components/arrow-icon";
+import { Eyebrow } from "../components/eyebrow";
+import { SiteFooter } from "../components/site-footer";
+import { SiteHeader } from "../components/site-header";
+import { siteContent } from "../content/site-content";
 
 function CompassMark() {
   return (
@@ -47,65 +15,55 @@ function CompassMark() {
 }
 
 export default function Home() {
+  const {
+    brand,
+    contact,
+    footer,
+    hero,
+    inspiration,
+    navigation,
+    promise,
+    service,
+  } = siteContent;
+
   return (
     <div className="site-shell">
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="Sai World Travels home">
-          <Image
-            src="/brand/sai-world-logo.jpeg"
-            alt="Sai World Travels"
-            width={72}
-            height={72}
-            priority
-          />
-        </a>
-
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#approach">How we work</a>
-          <a href="#inspiration">Travel inspiration</a>
-          <a href="#about">Our promise</a>
-        </nav>
-
-        <a className="header-cta" href="#contact">
-          <span>Plan your journey</span>
-          <ArrowIcon />
-        </a>
-      </header>
+      <SiteHeader
+        ctaHref={navigation.primaryAction.href}
+        ctaLabel={navigation.primaryAction.label}
+        homeLabel={brand.homeLabel}
+        logoAlt={brand.logo.alt}
+        logoSrc={brand.logo.src}
+        navigation={navigation.items}
+        navigationLabel={navigation.ariaLabel}
+      />
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
-            <p className="eyebrow">
-              <span aria-hidden="true" />
-              Personal travel, by introduction
-            </p>
+            <Eyebrow withRule>{hero.eyebrow}</Eyebrow>
             <h1 id="hero-title">
-              A holiday shaped
+              {hero.title}
               <br />
-              <em>around you.</em>
+              <em>{hero.emphasizedTitle}</em>
             </h1>
-            <p className="hero-summary">
-              Sai World Travels personally plans, arranges, and manages your
-              complete journey—with the care that comes from a trusted
-              introduction.
-            </p>
+            <p className="hero-summary">{hero.summary}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#contact">
-                Start planning your journey
+              <a className="button button-primary" href={hero.primaryAction.href}>
+                {hero.primaryAction.label}
                 <ArrowIcon />
               </a>
-              <a className="text-link" href="#approach">
-                Discover how we work
+              <a className="text-link" href={hero.secondaryAction.href}>
+                {hero.secondaryAction.label}
               </a>
             </div>
             <p className="relationship-note">
               <span aria-hidden="true">✦</span>
-              Welcoming travellers referred by our past clients and trusted
-              network.
+              {hero.relationshipNote}
             </p>
           </div>
 
-          <div className="hero-visual" aria-label="A personalised journey from idea to return">
+          <div className="hero-visual">
             <div className="sun-orbit" aria-hidden="true" />
             <div className="route-line route-line-one" aria-hidden="true" />
             <div className="route-line route-line-two" aria-hidden="true" />
@@ -113,53 +71,54 @@ export default function Home() {
             <div className="journey-card">
               <div className="journey-card-topline">
                 <CompassMark />
-                <span>Made for you</span>
+                <span>{hero.journeyCard.topline}</span>
               </div>
-              <p className="journey-label">Your next story</p>
-              <p className="journey-title">From a first idea to a beautiful return.</p>
+              <p className="journey-label">{hero.journeyCard.label}</p>
+              <p className="journey-title">{hero.journeyCard.title}</p>
               <div className="journey-track" aria-hidden="true">
-                <span />
-                <span />
-                <span />
+                {hero.journeyCard.points.map((point) => (
+                  <span key={point} />
+                ))}
               </div>
               <div className="journey-points" aria-hidden="true">
-                <span>Imagine</span>
-                <span>Plan</span>
-                <span>Travel</span>
+                {hero.journeyCard.points.map((point) => (
+                  <span key={point}>{point}</span>
+                ))}
               </div>
             </div>
 
             <div className="personal-touch-card">
               <span className="personal-touch-icon" aria-hidden="true">✓</span>
               <p>
-                <strong>One personal team</strong>
-                <span>with you throughout</span>
+                <strong>{hero.personalTouch.title}</strong>
+                <span>{hero.personalTouch.detail}</span>
               </p>
             </div>
           </div>
 
-          <a className="hero-scroll" href="#approach" aria-label="Scroll to how we work">
+          <a
+            className="hero-scroll"
+            href={hero.scrollAction.href}
+            aria-label={hero.scrollAction.ariaLabel}
+          >
             <span />
-            Our approach
+            {hero.scrollAction.label}
           </a>
         </section>
 
         <section className="approach section" id="approach" aria-labelledby="approach-title">
           <div className="section-heading">
-            <p className="eyebrow eyebrow-dark">Why the difference feels personal</p>
+            <Eyebrow tone="dark">{service.eyebrow}</Eyebrow>
             <h2 id="approach-title">
-              We begin with <em>you,</em>
+              {service.title} <em>{service.emphasizedTitle}</em>
               <br />
-              not a package.
+              {service.titleContinuation}
             </h2>
-            <p>
-              There is no shelf of fixed itineraries here. Every journey begins
-              with a conversation and grows around the people taking it.
-            </p>
+            <p>{service.description}</p>
           </div>
 
           <ol className="steps-grid">
-            {serviceSteps.map((step) => (
+            {service.steps.map((step) => (
               <li key={step.number}>
                 <span className="step-number">{step.number}</span>
                 <h3>{step.title}</h3>
@@ -171,85 +130,71 @@ export default function Home() {
 
         <section className="inspiration section" id="inspiration" aria-labelledby="inspiration-title">
           <div className="inspiration-copy">
-            <p className="eyebrow eyebrow-dark">Travel inspiration</p>
+            <Eyebrow tone="dark">{inspiration.eyebrow}</Eyebrow>
             <h2 id="inspiration-title">
-              The feeling comes first.
+              {inspiration.title}
               <br />
-              <em>The itinerary follows.</em>
+              <em>{inspiration.emphasizedTitle}</em>
             </h2>
-            <p>
-              Tell us what you want to celebrate, discover, or simply leave
-              behind for a while. We will shape the right journey from there.
-            </p>
+            <p>{inspiration.description}</p>
           </div>
 
-          <ul className="journey-types" aria-label="Journeys we can personalise">
-            {journeyTypes.map((journey, index) => (
-              <li key={journey}>
-                <span>0{index + 1}</span>
-                <strong>{journey}</strong>
-                <ArrowIcon />
+          <ul className="journey-types" aria-label={inspiration.listLabel}>
+            {inspiration.journeyTypes.map((journey) => (
+              <li key={journey.number}>
+                <span>{journey.number}</span>
+                <strong>{journey.label}</strong>
               </li>
             ))}
           </ul>
         </section>
 
         <section className="promise section" id="about" aria-labelledby="promise-title">
-          <p className="promise-kicker">Our promise</p>
+          <p className="promise-kicker">{promise.kicker}</p>
           <blockquote>
-            <p id="promise-title">
-              “Thoughtful advice, honest conversations, and one team that stays
-              close to every detail.”
-            </p>
+            <p id="promise-title">{promise.quote}</p>
           </blockquote>
           <div className="promise-signoff">
             <span />
             <p>
-              <strong>Sai World Travels</strong>
-              <span>Holidays, your way.</span>
+              <strong>{promise.signoffName}</strong>
+              <span>{promise.signoffTagline}</span>
             </p>
           </div>
         </section>
 
         <section className="contact section" id="contact" aria-labelledby="contact-title">
           <div>
-            <p className="eyebrow">When you are ready</p>
+            <Eyebrow>{contact.eyebrow}</Eyebrow>
             <h2 id="contact-title">
-              Let&apos;s begin with
+              {contact.title}
               <br />
-              <em>a conversation.</em>
+              <em>{contact.emphasizedTitle}</em>
             </h2>
           </div>
           <div className="contact-action">
-            <p>
-              Have a destination in mind—or just a feeling you want your next
-              holiday to have? We would love to hear it.
-            </p>
-            <button className="button button-light" type="button" disabled>
-              Start planning your journey
+            <p>{contact.description}</p>
+            <button
+              className="button button-light"
+              type="button"
+              disabled={!contact.action.enabled}
+            >
+              {contact.action.label}
               <ArrowIcon />
             </button>
-            <small>Enquiry channel coming next — official details to be confirmed</small>
+            <small>{contact.availabilityNote}</small>
           </div>
         </section>
       </main>
 
-      <footer className="site-footer">
-        <a className="footer-brand" href="#top">
-          <Image
-            src="/brand/sai-world-logo.jpeg"
-            alt=""
-            width={58}
-            height={58}
-          />
-          <span>
-            <strong>Sai World Travels</strong>
-            <small>Holidays, your way.</small>
-          </span>
-        </a>
-        <p>Personalised travel for referred guests and trusted introductions.</p>
-        <small>© 2026 Sai World Travels</small>
-      </footer>
+      <SiteFooter
+        brandName={footer.brandName}
+        copyright={footer.legalNotice.text}
+        description={footer.summary}
+        homeHref={footer.homeHref}
+        logoSrc={brand.logo.src}
+        tagline={footer.tagline}
+      />
     </div>
   );
 }

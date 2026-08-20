@@ -11,3 +11,19 @@
 - Added exact `sharp` production support for self-hosted Next Image optimization.
 - Recorded Node.js 22/24 Hostinger-runtime verification as a pre-production requirement.
 - Independent audit approved the phase, and branch `agent/phase-1-foundation` was pushed to GitHub.
+
+## 2026-08-20 — Build Phase 2 design and content system
+**What**: Extracted reusable Server Components and typed claim-safe content, redesigned the homepage as an original Private Journey Folio, and added responsive CSS-only motion with accessible fallbacks.
+**Why**: Establish a distinctive, maintainable visual/content language for all later routes while explicitly avoiding generic AI-looking travel templates.
+**Impact**: Homepage copy now comes from one typed source of truth; desktop and mobile use a bespoke route/checkpoint composition; new routes must reuse the component, content, accessibility, and motion contracts.
+**Files Changed**: `app/page.tsx`, `app/page.test.tsx`, `app/globals.css`, `components/*.tsx`, `content/*.ts`, `next.config.ts`, and task-relevant `knowledge-base/*.md` files.
+**Tests**: `pnpm lint`, `pnpm typecheck`, `pnpm test` (14/14 passed), `pnpm build`, production `next start`, homepage and optimized-image smoke tests passed; post-consolidation browser QA at 390x844 and 1440x900 passed with no horizontal overflow, false journey controls, or application errors; final independent re-audit approved the phase.
+**Commit**: Pending Phase 2 approval commit.
+
+- Kept all components Server Component-compatible and introduced no client animation library or host-specific API.
+- Kept the enquiry action disabled and all unverified contact/legal fields explicitly pending.
+- Added finite motion only under `prefers-reduced-motion: no-preference`, guarded scroll timelines, and coarse-pointer interaction rules.
+- Disabled Next's automatic generated agent-instruction files so the maintained project knowledge base remains authoritative.
+- The first audit candidate was rejected for CSS consolidation, false journey-row interactivity, typed-logo use, hero semantics, button focus, and mobile-motion issues; all findings are release blockers until the re-audit passes.
+- Consolidated the stylesheet into one canonical layer, removed journey arrows/hover affordances, wired typed logo data, corrected hero semantics, and added focus/mobile-motion safeguards before re-audit.
+- The final independent re-audit approved Phase 2 with no remaining blockers.

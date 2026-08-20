@@ -51,3 +51,21 @@
 **Alternatives Considered**: Continuous unverified commits directly to the default branch.
 **Consequences**: Each milestone remains reviewable and recoverable; incomplete work stays local or on the active feature branch.
 **Superseded By**: None.
+
+## Decision: Typed claim-safe content separated from presentation
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: Reusable pages and components must share verified business language without duplicating copy or introducing unapproved claims.
+**Decision**: Keep site-wide copy, navigation targets, section IDs, pending states, and repeated lists in `content/site-content.ts` as readonly typed data. Render it through typed Server Components in `components/` and App Router pages.
+**Alternatives Considered**: Repeating strings in every page, embedding JSX in content data, or adding a CMS before the content and workflow are stable.
+**Consequences**: Product claims and unavailable actions have one reviewable source of truth, while future CMS adoption remains possible. Content types must stay aligned with rendered section IDs and tests.
+**Superseded By**: None.
+
+## Decision: Private Journey Folio with CSS-only progressive motion
+**Date**: 2026-08-20
+**Status**: Accepted
+**Context**: The user explicitly rejected generic AI-looking travel templates and asked for distinctive, creative desktop and mobile animation.
+**Decision**: Use a bespoke editorial folio composition built around a continuous route/checkpoint motif, the supplied blue/orange palette, asymmetry, and purposeful finite CSS motion. Keep motion inside `prefers-reduced-motion: no-preference`, guard scroll timelines with `@supports`, and keep essential content visible without JavaScript.
+**Alternatives Considered**: Package-card grids, stock travel imagery, generic glass panels, uniform fade-up reveals, autoplay carousels, parallax, and a client animation library.
+**Consequences**: The site has a recognisable visual language without runtime animation dependencies. Every new route must preserve reduced-motion, touch, focus, overflow, and performance checks.
+**Superseded By**: None.

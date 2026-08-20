@@ -45,11 +45,52 @@ describe("home page foundation", () => {
     expect(planningLinks.some((link) => link.getAttribute("href") === "#contact")).toBe(true);
   });
 
+  it("keeps every in-page navigation target connected to rendered content", () => {
+    const { container } = render(<Home />);
+    const inPageLinks = Array.from(
+      container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
+    );
+
+    expect(container.querySelectorAll("h1")).toHaveLength(1);
+    expect(inPageLinks.length).toBeGreaterThan(0);
+
+    for (const link of inPageLinks) {
+      expect(container.querySelector(link.hash)).toBeTruthy();
+    }
+  });
+
+  it("keeps the enquiry action unavailable until official details are ready", () => {
+    render(<Home />);
+
+    const enquiryButton = screen.getByRole("button", {
+      name: /start planning your journey/i,
+    });
+
+    expect(enquiryButton.hasAttribute("disabled")).toBe(true);
+    expect(screen.getByText(/official details to be confirmed/i)).toBeTruthy();
+  });
+
+  it("exposes the journey folio copy without labelling a generic container", () => {
+    const { container } = render(<Home />);
+
+    expect(
+      screen.getByText(/from a first idea to a beautiful return/i),
+    ).toBeTruthy();
+    expect(container.querySelector(".hero-visual")?.hasAttribute("aria-label")).toBe(
+      false,
+    );
+  });
+
   it("presents inspiration without fixed package pricing", () => {
     const { container } = render(<Home />);
+    const journeyRows = Array.from(container.querySelectorAll(".journey-types li"));
 
     expect(screen.getByText("Family escapes")).toBeTruthy();
     expect(screen.getByText("Honeymoons")).toBeTruthy();
+    expect(journeyRows).not.toHaveLength(0);
+    expect(journeyRows.every((row) => row.querySelector("a, button, svg") === null)).toBe(
+      true,
+    );
     expect(container.textContent).not.toMatch(/book now|starting from|₹/i);
   });
 });

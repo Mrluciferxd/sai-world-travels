@@ -15,6 +15,8 @@
 ## Directory Structure
 ```text
 app/                 Next.js routes, layout, styles, and adjacent tests
+components/          Reusable typed Server Components and adjacent tests
+content/             Claim-safe typed site copy, navigation, and content tests
 public/              Static brand and website assets
 supabase/            Local Supabase configuration and migrations when backend work begins
 knowledge-base/      Project source of truth
@@ -31,6 +33,7 @@ knowledge-base/      Project source of truth
 - Commit and push at the end of each completed phase after verification.
 - Keep `sharp` installed while using `next/image` on self-hosted production.
 - Use `pnpm verify` for the complete local check: lint, typecheck, tests, and the production build.
+- Preserve the Private Journey Folio direction: bespoke editorial composition and purposeful CSS motion, not generic travel templates or AI-looking card grids.
 
 ## Quick Facts
 | Key | Value |
